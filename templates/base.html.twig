@@ -1,0 +1,23 @@
+{% include 'layout/header.html.twig' %}
+
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <!-- Top Navbar -->
+    {% include 'layout/topnavbar.html.twig' %}
+
+    <!-- Main Sidebar  -->
+    {% include 'layout/sidenav.html.twig' %}
+
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+
+</div>
+<!-- /.content-wrapper -->
+
+<!-- Main footer -->
+{% include 'layout/footer.html.twig' %}
+
+</body>
+</html>
+
