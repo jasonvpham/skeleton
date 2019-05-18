@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
@@ -18,6 +21,8 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(message = "Please enter a valid email address.")
+     * @Assert\Email()
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
@@ -29,9 +34,23 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
+     * @Assert\NotBlank(message = "Please enter a valid password.")
+     * @Assert\Length(max=4096)
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @Assert\NotBlank(message = "Valid first name is required.")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $first_name;
+
+    /**
+     * @Assert\NotBlank(message = "Valid last name is required")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $last_name;
 
     public function getId(): ?int
     {
@@ -109,5 +128,29 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    public function setFirstName(string $first_name): self
+    {
+        $this->first_name = $first_name;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->last_name;
+    }
+
+    public function setLastName(string $last_name): self
+    {
+        $this->last_name = $last_name;
+
+        return $this;
     }
 }
