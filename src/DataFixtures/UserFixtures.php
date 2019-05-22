@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture
 {
+    private $passwordEncoder;
 
     public function __construct(UserPasswordEncoderInterface $password_encoder)
     {
@@ -23,7 +24,10 @@ class UserFixtures extends Fixture
 
             $user -> setEmail($email);
             $user -> setRoles($roles);
-            $user -> setPassword($this -> password_encoder ->encodePassword($user, $password));
+            $user -> setPassword($this -> password_encoder ->encodePassword(
+                $user,
+                $password
+            ));
             $user -> setFirstName($firstname);
             $user -> setLastName($last_name);
 
